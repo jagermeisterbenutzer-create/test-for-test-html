@@ -4,43 +4,718 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>refark.com - Ссылки, которые работают на результат</title>
+    <meta name="description" content="refark.com помогает сокращать, упорядочивать и обновлять ссылки в одном месте для маркетинга, контента и командной работы.">
+    <style>
+        :root {
+            color-scheme: dark;
+            --surface: rgba(17, 34, 57, 0.82);
+            --line: rgba(158, 185, 255, 0.16);
+            --text: #f4f7fb;
+            --muted: #aac0de;
+            --accent: #7c9cff;
+            --accent-strong: #96f2d7;
+            --shadow: 0 24px 80px rgba(2, 8, 18, 0.45);
+            --max-width: 1160px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(124, 156, 255, 0.26), transparent 28%),
+                radial-gradient(circle at top right, rgba(150, 242, 215, 0.12), transparent 24%),
+                linear-gradient(180deg, #08111e 0%, #0c1729 52%, #08111e 100%);
+            color: var(--text);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .page-shell {
+            width: min(calc(100% - 32px), var(--max-width));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 24px 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+            color: #07111f;
+            box-shadow: 0 14px 30px rgba(124, 156, 255, 0.35);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .nav a:hover,
+        .nav a:focus-visible,
+        .footer-links a:hover,
+        .footer-links a:focus-visible {
+            color: var(--text);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: 32px;
+            align-items: center;
+            padding: 40px 0 72px;
+        }
+
+        .hero-copy,
+        .hero-card,
+        .feature-card,
+        .workflow-card,
+        .audience-card,
+        .cta-banner,
+        .stat-card {
+            border: 1px solid var(--line);
+            background: var(--surface);
+            backdrop-filter: blur(18px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-copy {
+            padding: 48px;
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-copy::after {
+            content: "";
+            position: absolute;
+            inset: auto -20% -35% 25%;
+            height: 180px;
+            background: radial-gradient(circle, rgba(124, 156, 255, 0.28), transparent 65%);
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(150, 242, 215, 0.1);
+            color: var(--accent-strong);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        h1,
+        h2,
+        h3,
+        p {
+            margin-top: 0;
+        }
+
+        h1 {
+            margin: 24px 0 20px;
+            font-size: clamp(2.5rem, 5vw, 4.7rem);
+            line-height: 0.98;
+            letter-spacing: -0.05em;
+            max-width: 11ch;
+        }
+
+        .hero-copy p {
+            color: var(--muted);
+            font-size: 1.06rem;
+            line-height: 1.7;
+            max-width: 58ch;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin: 30px 0 34px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 0 22px;
+            border-radius: 16px;
+            font-weight: 700;
+            transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            transform: translateY(-1px);
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, var(--accent), #89b1ff);
+            color: #07111f;
+        }
+
+        .button-secondary {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--line);
+            color: var(--text);
+        }
+
+        .hero-points {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .stat-card {
+            padding: 18px;
+            border-radius: 20px;
+        }
+
+        .stat-value {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .hero-card {
+            padding: 28px;
+            border-radius: 32px;
+        }
+
+        .dashboard {
+            display: grid;
+            gap: 18px;
+        }
+
+        .dashboard-panel {
+            padding: 22px;
+            border-radius: 24px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .panel-heading,
+        .panel-row,
+        .summary-list li,
+        .workflow-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .panel-heading {
+            margin-bottom: 18px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .panel-row + .panel-row,
+        .summary-list li + li,
+        .workflow-list li + li {
+            margin-top: 14px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 74px;
+            min-height: 32px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: rgba(150, 242, 215, 0.1);
+            color: var(--accent-strong);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .mini-chart {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            align-items: end;
+            gap: 10px;
+            height: 120px;
+            margin-top: 18px;
+        }
+
+        .mini-chart span {
+            border-radius: 14px 14px 6px 6px;
+            background: linear-gradient(180deg, rgba(150, 242, 215, 0.95), rgba(124, 156, 255, 0.45));
+        }
+
+        .section {
+            padding: 26px 0;
+        }
+
+        .section-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .section-header h2 {
+            margin-bottom: 10px;
+            font-size: clamp(1.9rem, 3vw, 3rem);
+            letter-spacing: -0.04em;
+        }
+
+        .section-header p {
+            max-width: 58ch;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .feature-grid,
+        .workflow-grid,
+        .audience-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .feature-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .workflow-grid,
+        .audience-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .feature-card,
+        .workflow-card,
+        .audience-card {
+            padding: 28px;
+            border-radius: 24px;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            margin-bottom: 18px;
+            background: rgba(124, 156, 255, 0.12);
+            color: var(--accent-strong);
+            font-weight: 700;
+        }
+
+        .feature-card h3,
+        .workflow-card h3,
+        .audience-card h3 {
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+        }
+
+        .feature-card p,
+        .workflow-card p,
+        .audience-card p,
+        .cta-banner p,
+        .footer-copy {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .summary-list,
+        .workflow-list {
+            list-style: none;
+            padding: 0;
+            margin: 22px 0 0;
+        }
+
+        .summary-list strong,
+        .workflow-list strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.98rem;
+        }
+
+        .summary-list span,
+        .workflow-list span {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .step-number {
+            width: 42px;
+            height: 42px;
+            flex: none;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: rgba(124, 156, 255, 0.14);
+            color: var(--accent-strong);
+            font-weight: 700;
+        }
+
+        .cta {
+            padding: 44px 0 72px;
+        }
+
+        .cta-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 32px;
+            border-radius: 28px;
+        }
+
+        .footer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 0 0 36px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            color: var(--muted);
+        }
+
+        @media (max-width: 980px) {
+            .hero,
+            .feature-grid,
+            .workflow-grid,
+            .audience-grid,
+            .hero-points {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 16px;
+            }
+
+            .hero-copy,
+            .hero-card,
+            .feature-card,
+            .workflow-card,
+            .audience-card,
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .topbar,
+            .cta-banner,
+            .footer {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .page-shell {
+                width: min(calc(100% - 24px), var(--max-width));
+            }
+
+            .nav {
+                flex-wrap: wrap;
+                gap: 12px 18px;
+            }
+
+            h1 {
+                max-width: none;
+            }
+
+            .hero-copy {
+                border-radius: 28px;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>refark.com - удобный способ управлять ссылками и трафиком</h1>
-        <p>Собирайте, сокращайте и делитесь ссылками в одном месте, чтобы быстрее направлять аудиторию туда, где происходит действие.</p>
-    </header>
+    <div class="page-shell">
+        <header class="topbar">
+            <a class="brand" href="#top" aria-label="refark.com">
+                <span class="brand-mark">R</span>
+                <span>refark.com</span>
+            </a>
+            <nav class="nav" aria-label="Основная навигация">
+                <a href="#features">Возможности</a>
+                <a href="#workflow">Как это работает</a>
+                <a href="#audience">Для кого</a>
+                <a href="#start">Начать</a>
+            </nav>
+        </header>
 
-    <main>
-        <section>
-            <h2>Почему refark.com</h2>
-            <p>refark.com помогает превратить обычные ссылки в понятный и управляемый инструмент для маркетинга, контента и ежедневной коммуникации.</p>
-        </section>
+        <main id="top">
+            <section class="hero">
+                <div class="hero-copy">
+                    <span class="eyebrow">Управление ссылками без лишней ручной работы</span>
+                    <h1>Ссылки, которые ведут к действию</h1>
+                    <p>refark.com помогает собирать, сокращать и обновлять ссылки в одном месте, чтобы кампании запускались быстрее, материалы выглядели аккуратнее, а команда всегда знала, куда ведет каждый переход.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#start">Попробовать сценарий запуска</a>
+                        <a class="button button-secondary" href="#features">Посмотреть возможности</a>
+                    </div>
+                    <div class="hero-points" aria-label="Ключевые преимущества">
+                        <article class="stat-card">
+                            <span class="stat-value">1 панель</span>
+                            <span class="stat-label">Все ссылки, кампании и обновления в одном рабочем пространстве.</span>
+                        </article>
+                        <article class="stat-card">
+                            <span class="stat-value">Быстрый старт</span>
+                            <span class="stat-label">Понятная структура, чтобы публиковать ссылки без долгой настройки.</span>
+                        </article>
+                        <article class="stat-card">
+                            <span class="stat-value">Гибкое обновление</span>
+                            <span class="stat-label">Меняйте направление ссылки без перепаковки материалов.</span>
+                        </article>
+                    </div>
+                </div>
 
-        <section>
-            <h2>Ключевые возможности</h2>
-            <ul>
-                <li>Быстрое создание коротких и аккуратных ссылок для любых каналов.</li>
-                <li>Удобная организация ссылок для команд, проектов и кампаний.</li>
-                <li>Единая точка управления, чтобы обновлять направления без лишней ручной работы.</li>
-                <li>Простой формат для публикации в соцсетях, рассылках и рекламе.</li>
-            </ul>
-        </section>
+                <aside class="hero-card" aria-label="Пример интерфейса refark.com">
+                    <div class="dashboard">
+                        <section class="dashboard-panel">
+                            <div class="panel-heading">
+                                <span>Активные кампании</span>
+                                <span class="chip">Онлайн</span>
+                            </div>
+                            <div class="panel-row">
+                                <strong>Весенний запуск</strong>
+                                <span>refark.com/go/spring</span>
+                            </div>
+                            <div class="panel-row">
+                                <strong>Рассылка недели</strong>
+                                <span>refark.com/go/week</span>
+                            </div>
+                            <div class="panel-row">
+                                <strong>Профиль бренда</strong>
+                                <span>refark.com/go/team</span>
+                            </div>
+                            <div class="mini-chart" aria-hidden="true">
+                                <span style="height: 36%"></span>
+                                <span style="height: 58%"></span>
+                                <span style="height: 44%"></span>
+                                <span style="height: 82%"></span>
+                                <span style="height: 68%"></span>
+                                <span style="height: 100%"></span>
+                            </div>
+                        </section>
 
-        <section>
-            <h2>В чем ценность</h2>
-            <p>Сервис экономит время, делает ссылки понятнее для аудитории и помогает поддерживать аккуратное присутствие бренда в каждом касании.</p>
-        </section>
+                        <section class="dashboard-panel">
+                            <div class="panel-heading">
+                                <span>Почему это удобно</span>
+                                <span>Сегодня</span>
+                            </div>
+                            <ul class="summary-list">
+                                <li>
+                                    <div>
+                                        <strong>Короткие и аккуратные ссылки</strong>
+                                        <span>Удобно делиться в соцсетях, письмах и презентациях.</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <strong>Единая структура для команды</strong>
+                                        <span>Меньше путаницы между проектами, сезонами и источниками.</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div>
+                                        <strong>Обновление без повторной публикации</strong>
+                                        <span>Ссылки остаются прежними, даже если маршрут меняется.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </section>
+                    </div>
+                </aside>
+            </section>
 
-        <section>
-            <h2>Для кого</h2>
-            <p>Для создателей контента, маркетологов, команд продаж и всех, кто регулярно работает с переходами, промо-материалами и онлайн-аудиторией.</p>
-        </section>
+            <section class="section" id="features">
+                <div class="section-header">
+                    <div>
+                        <h2>Почему refark.com</h2>
+                        <p>Сервис превращает обычные ссылки в понятный инструмент управления трафиком. Вместо разрозненных URL вы получаете единый, аккуратный и легко обновляемый слой для повседневной работы.</p>
+                    </div>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <div class="feature-icon">01</div>
+                        <h3>Быстрое создание</h3>
+                        <p>Создавайте короткие ссылки для любых каналов: от рекламных кампаний до внутренних материалов команды.</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-icon">02</div>
+                        <h3>Понятная организация</h3>
+                        <p>Упорядочивайте ссылки по проектам, запускам и сценариям, чтобы не терять контекст в повседневной работе.</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="feature-icon">03</div>
+                        <h3>Уверенное обновление</h3>
+                        <p>Меняйте конечное направление без лишней ручной переработки опубликованных постов, писем и документов.</p>
+                    </article>
+                </div>
+            </section>
 
-        <section>
-            <h2>Начните с refark.com</h2>
-            <p>Используйте один сервис, чтобы делиться ссылками увереннее, выглядеть профессиональнее и получать больше пользы от каждого перехода.</p>
-        </section>
-    </main>
+            <section class="section" id="workflow">
+                <div class="section-header">
+                    <div>
+                        <h2>Как это работает</h2>
+                        <p>Лендинг построен вокруг простого пользовательского сценария: подготовить ссылку, распространить ее в нужных каналах и при необходимости обновить маршрут без потери аккуратного внешнего вида.</p>
+                    </div>
+                </div>
+                <div class="workflow-grid">
+                    <article class="workflow-card">
+                        <h3>Три шага до публикации</h3>
+                        <ul class="workflow-list">
+                            <li>
+                                <span class="step-number">1</span>
+                                <div>
+                                    <strong>Соберите ссылку</strong>
+                                    <span>Подготовьте понятный короткий адрес для конкретной кампании или материала.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="step-number">2</span>
+                                <div>
+                                    <strong>Используйте в каналах</strong>
+                                    <span>Размещайте ее в соцсетях, письмах, рекламе, презентациях и профилях.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="step-number">3</span>
+                                <div>
+                                    <strong>Корректируйте маршрут</strong>
+                                    <span>При необходимости обновите направление, не меняя уже опубликованный URL.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="workflow-card">
+                        <h3>Практическая ценность</h3>
+                        <p>Такой подход экономит время, помогает поддерживать аккуратное присутствие бренда и снижает количество ручных правок при смене целевой страницы или сценария продвижения.</p>
+                        <ul class="summary-list">
+                            <li>
+                                <div>
+                                    <strong>Быстрее запуск</strong>
+                                    <span>Меньше действий перед публикацией материалов.</span>
+                                </div>
+                                <span class="chip">Скорость</span>
+                            </li>
+                            <li>
+                                <div>
+                                    <strong>Чище коммуникация</strong>
+                                    <span>Ссылки выглядят аккуратно и понятны аудитории.</span>
+                                </div>
+                                <span class="chip">Имидж</span>
+                            </li>
+                            <li>
+                                <div>
+                                    <strong>Меньше риска ошибок</strong>
+                                    <span>Одна точка управления вместо ручного поиска и замены.</span>
+                                </div>
+                                <span class="chip">Контроль</span>
+                            </li>
+                        </ul>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="audience">
+                <div class="section-header">
+                    <div>
+                        <h2>Для кого создан сервис</h2>
+                        <p>refark.com подходит тем, кто регулярно работает с переходами и хочет объединить скорость публикации, аккуратность ссылок и предсказуемое управление маршрутами.</p>
+                    </div>
+                </div>
+                <div class="audience-grid">
+                    <article class="audience-card">
+                        <h3>Маркетологи и команды роста</h3>
+                        <p>Удобно вести кампании, быстро переключать направления и поддерживать целостность материалов в нескольких каналах.</p>
+                    </article>
+                    <article class="audience-card">
+                        <h3>Создатели контента и бренды</h3>
+                        <p>Легче размещать аккуратные ссылки в профилях, публикациях, описаниях и партнерских интеграциях.</p>
+                    </article>
+                    <article class="audience-card">
+                        <h3>Продажи и клиентские команды</h3>
+                        <p>Можно централизованно управлять ссылками на презентации, коммерческие предложения и onboarding-материалы.</p>
+                    </article>
+                    <article class="audience-card">
+                        <h3>Небольшие проекты и стартапы</h3>
+                        <p>Сервис помогает сохранить порядок даже без сложной инфраструктуры и лишних процессов вокруг ссылок.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="cta" id="start">
+                <div class="cta-banner">
+                    <div>
+                        <h2>Начните с аккуратной системы ссылок</h2>
+                        <p>Используйте refark.com, чтобы делиться ссылками увереннее, быстрее управлять маршрутами и получать больше пользы от каждого перехода.</p>
+                    </div>
+                    <a class="button button-primary" href="#top">Собрать первый сценарий</a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p class="footer-copy">refark.com - единое пространство для коротких, понятных и управляемых ссылок.</p>
+            <div class="footer-links" aria-label="Дополнительные ссылки">
+                <a href="#features">Возможности</a>
+                <a href="#workflow">Сценарий работы</a>
+                <a href="#audience">Аудитория</a>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
