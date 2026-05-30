@@ -9,11 +9,13 @@
         :root {
             color-scheme: dark;
             --surface: rgba(17, 34, 57, 0.82);
+            --surface-strong: rgba(12, 24, 42, 0.92);
             --line: rgba(158, 185, 255, 0.16);
             --text: #f4f7fb;
             --muted: #aac0de;
             --accent: #7c9cff;
             --accent-strong: #96f2d7;
+            --accent-soft: rgba(124, 156, 255, 0.14);
             --shadow: 0 24px 80px rgba(2, 8, 18, 0.45);
             --max-width: 1160px;
         }
@@ -41,6 +43,12 @@
             text-decoration: none;
         }
 
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid rgba(150, 242, 215, 0.9);
+            outline-offset: 3px;
+        }
+
         img {
             max-width: 100%;
             display: block;
@@ -57,6 +65,20 @@
             justify-content: space-between;
             gap: 24px;
             padding: 24px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(18px);
+        }
+
+        .topbar::before {
+            content: "";
+            position: absolute;
+            inset: 8px -12px;
+            border: 1px solid rgba(158, 185, 255, 0.08);
+            border-radius: 22px;
+            background: rgba(8, 17, 30, 0.55);
+            z-index: -1;
         }
 
         .brand {
@@ -140,6 +162,24 @@
             color: var(--accent-strong);
             font-size: 0.9rem;
             font-weight: 600;
+        }
+
+        .hero-lead {
+            display: grid;
+            gap: 14px;
+            margin-top: 24px;
+            padding-top: 22px;
+            border-top: 1px solid rgba(158, 185, 255, 0.12);
+        }
+
+        .hero-lead strong {
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
+        }
+
+        .hero-lead span {
+            color: var(--muted);
+            line-height: 1.6;
         }
 
         h1,
@@ -241,6 +281,7 @@
 
         .panel-heading,
         .panel-row,
+        .signal-row,
         .summary-list li,
         .workflow-list li {
             display: flex;
@@ -256,9 +297,50 @@
         }
 
         .panel-row + .panel-row,
+        .signal-row + .signal-row,
         .summary-list li + li,
         .workflow-list li + li {
             margin-top: 14px;
+        }
+
+        .signal-stack {
+            display: grid;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .signal-row {
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .signal-row strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.98rem;
+        }
+
+        .signal-row span {
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .signal-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 86px;
+            min-height: 32px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--text);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
         }
 
         .chip {
@@ -290,7 +372,7 @@
         }
 
         .section {
-            padding: 26px 0;
+            padding: 34px 0;
         }
 
         .section-header {
@@ -335,6 +417,11 @@
         .audience-card {
             padding: 28px;
             border-radius: 24px;
+        }
+
+        .feature-card,
+        .workflow-card {
+            background: linear-gradient(180deg, var(--surface), var(--surface-strong));
         }
 
         .feature-icon {
@@ -408,6 +495,7 @@
             gap: 24px;
             padding: 32px;
             border-radius: 28px;
+            background: linear-gradient(135deg, rgba(18, 38, 64, 0.95), rgba(14, 30, 51, 0.88));
         }
 
         .footer {
@@ -454,6 +542,14 @@
                 align-items: flex-start;
                 flex-direction: column;
             }
+
+            .topbar {
+                position: static;
+            }
+
+            .topbar::before {
+                inset: 0;
+            }
         }
 
         @media (max-width: 720px) {
@@ -498,25 +594,31 @@
         <main id="top">
             <section class="hero">
                 <div class="hero-copy">
-                    <span class="eyebrow">Autonomous software delivery with human control</span>
-                    <h1>Ship code with AI agents that work end to end</h1>
-                    <p>refark.com gives engineering teams a practical AI agent platform for implementation, code review, and QA. Run it in your own infrastructure, keep the workflow visible, and control delivery from the tools your team already uses.</p>
+                    <span class="eyebrow">AI delivery workflows with human approval built in</span>
+                    <h1>Run software delivery with AI agents your team can actually govern</h1>
+                    <p>refark.com helps engineering teams coordinate implementation, review, and QA through one operating layer. Keep execution inside your infrastructure, keep approvals visible, and manage the workflow from tools your team already uses.</p>
                     <div class="hero-actions">
                         <a class="button button-primary" href="#start">Design your rollout</a>
                         <a class="button button-secondary" href="#features">Explore the platform</a>
                     </div>
+                    <div class="hero-lead" aria-label="Landing page summary">
+                        <div>
+                            <strong>Built for real delivery environments</strong>
+                            <span>Useful when teams need automation without giving up infrastructure control, review checkpoints, or operational visibility.</span>
+                        </div>
+                    </div>
                     <div class="hero-points" aria-label="Key advantages">
                         <article class="stat-card">
-                            <span class="stat-value">One platform</span>
-                            <span class="stat-label">Coordinate build, review, and QA agents from a single operating layer.</span>
+                            <span class="stat-value">One workflow</span>
+                            <span class="stat-label">Coordinate implementation, review, and QA without splitting work across separate agent tools.</span>
                         </article>
                         <article class="stat-card">
                             <span class="stat-value">Self-hosted</span>
                             <span class="stat-label">Keep code, prompts, and execution inside your infrastructure and security perimeter.</span>
                         </article>
                         <article class="stat-card">
-                            <span class="stat-value">Telegram control</span>
-                            <span class="stat-label">Trigger, inspect, and coordinate work from messaging instead of another isolated dashboard.</span>
+                            <span class="stat-value">Messaging-native</span>
+                            <span class="stat-label">Trigger, inspect, and coordinate work from Telegram instead of relying only on another isolated dashboard.</span>
                         </article>
                     </div>
                 </div>
@@ -530,15 +632,15 @@
                             </div>
                             <div class="panel-row">
                                 <strong>Implementation agent</strong>
-                                <span>Issue mapped to working branch</span>
+                                <span>Scoped task mapped to working branch</span>
                             </div>
                             <div class="panel-row">
                                 <strong>Review agent</strong>
-                                <span>Diff checked before merge</span>
+                                <span>Change set inspected before approval</span>
                             </div>
                             <div class="panel-row">
                                 <strong>QA agent</strong>
-                                <span>Verification queued with context</span>
+                                <span>Verification queued with environment context</span>
                             </div>
                             <div class="mini-chart" aria-hidden="true">
                                 <span style="height: 36%"></span>
@@ -552,29 +654,32 @@
 
                         <section class="dashboard-panel">
                             <div class="panel-heading">
-                                <span>Why teams switch</span>
-                                <span>This week</span>
+                                <span>What teams need to see</span>
+                                <span>At a glance</span>
                             </div>
-                            <ul class="summary-list">
-                                <li>
+                            <div class="signal-stack">
+                                <div class="signal-row">
                                     <div>
-                                        <strong>Autonomy with clear boundaries</strong>
-                                        <span>Agents execute practical tasks while humans keep approval and visibility.</span>
+                                        <strong>Approval stays explicit</strong>
+                                        <span>Agents can execute delivery work while humans keep the decision points that matter.</span>
                                     </div>
-                                </li>
-                                <li>
+                                    <span class="signal-badge">Oversight</span>
+                                </div>
+                                <div class="signal-row">
                                     <div>
-                                        <strong>Open and extensible</strong>
-                                        <span>Adapt workflows to your stack instead of forcing teams into closed SaaS patterns.</span>
+                                        <strong>Deployment fits your environment</strong>
+                                        <span>Self-hosting keeps the platform aligned with internal security, compliance, and stack requirements.</span>
                                     </div>
-                                </li>
-                                <li>
+                                    <span class="signal-badge">Privacy</span>
+                                </div>
+                                <div class="signal-row">
                                     <div>
-                                        <strong>Private by deployment model</strong>
-                                        <span>Self-hosting makes the platform viable for regulated or security-sensitive teams.</span>
+                                        <strong>Operations stay accessible</strong>
+                                        <span>Telegram-based coordination keeps status, approvals, and follow-up actions close to the team.</span>
                                     </div>
-                                </li>
-                            </ul>
+                                    <span class="signal-badge">Speed</span>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </aside>
@@ -584,13 +689,13 @@
                 <div class="section-header">
                     <div>
                         <h2>Why refark.com</h2>
-                        <p>The platform is built around the parts competitors usually split apart: implementation, review, QA, secure deployment, and messaging-based coordination. That makes it easier to adopt AI agents without losing operational control.</p>
+                        <p>The platform is built around the parts teams usually end up stitching together themselves: implementation, review, QA, secure deployment, and messaging-based coordination. That makes AI adoption clearer, more governable, and easier to operationalize.</p>
                     </div>
                 </div>
                 <div class="feature-grid">
                     <article class="feature-card">
                         <div class="feature-icon">01</div>
-                        <h3>Full-pipeline automation</h3>
+                        <h3>Connected delivery workflow</h3>
                         <p>Move from task intake to implemented change, code review, and QA without stitching together separate agent products.</p>
                     </article>
                     <article class="feature-card">
@@ -601,7 +706,7 @@
                     <article class="feature-card">
                         <div class="feature-icon">03</div>
                         <h3>Telegram-native operations</h3>
-                        <p>Coordinate agents, approvals, and status updates from Telegram for faster team response and lower process friction.</p>
+                        <p>Coordinate agents, approvals, and status updates from Telegram so actions and visibility stay close to where teams already communicate.</p>
                     </article>
                 </div>
             </section>
@@ -610,7 +715,7 @@
                 <div class="section-header">
                     <div>
                         <h2>How it works</h2>
-                        <p>refark.com is designed for a practical delivery loop: assign work to an agent, review what changed, and verify the outcome before it reaches production. The flow stays simple enough for daily use and structured enough for real teams.</p>
+                        <p>refark.com is designed for a practical delivery loop: route work to an agent, review what changed, and verify the outcome before it reaches production. The flow stays simple enough for daily use and structured enough for real teams.</p>
                     </div>
                 </div>
                 <div class="workflow-grid">
@@ -628,7 +733,7 @@
                                 <span class="step-number">2</span>
                                 <div>
                                     <strong>Run build and review</strong>
-                                    <span>Let agents produce changes, inspect the diff, and validate quality before decisions are made.</span>
+                                    <span>Let agents produce changes, inspect the diff, and validate quality before approvals are given.</span>
                                 </div>
                             </li>
                             <li>
@@ -641,8 +746,8 @@
                         </ul>
                     </article>
                     <article class="workflow-card">
-                        <h3>Practical value</h3>
-                        <p>The result is not just faster output. Teams get a clearer operating model for AI work, fewer handoffs across disconnected tools, and a safer path to introducing automation into production engineering.</p>
+                        <h3>What improves in practice</h3>
+                        <p>The value is not just faster output. Teams get a clearer operating model for AI work, fewer handoffs across disconnected tools, and a safer path to introducing automation into production engineering.</p>
                         <ul class="summary-list">
                             <li>
                                 <div>
@@ -674,7 +779,7 @@
                 <div class="section-header">
                     <div>
                         <h2>Who it is for</h2>
-                        <p>refark.com fits teams that want to move faster with AI while still treating delivery, privacy, and oversight like production concerns rather than demo features.</p>
+                        <p>refark.com fits teams that want to move faster with AI while still treating delivery, privacy, and oversight as production concerns instead of demo features.</p>
                     </div>
                 </div>
                 <div class="audience-grid">
@@ -701,15 +806,15 @@
                 <div class="cta-banner">
                     <div>
                         <h2>Build an AI delivery layer your team can trust</h2>
-                        <p>Use refark.com to automate software work, keep operations close to your infrastructure, and coordinate the rollout with less friction.</p>
+                        <p>Use refark.com to automate software work, keep operations close to your infrastructure, and introduce agent workflows without losing review discipline.</p>
                     </div>
-                    <a class="button button-primary" href="#top">Start the first workflow</a>
+                    <a class="button button-primary" href="#top">Review the workflow</a>
                 </div>
             </section>
         </main>
 
         <footer class="footer">
-            <p class="footer-copy">refark.com is the AI agent platform for teams that need automation, privacy, and operational control in one place.</p>
+            <p class="footer-copy">refark.com is an AI agent platform for teams that need automation, privacy, and operational control in one place.</p>
             <div class="footer-links" aria-label="Additional links">
                 <a href="#features">Features</a>
                 <a href="#workflow">Workflow</a>
